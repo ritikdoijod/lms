@@ -1,7 +1,7 @@
 package com.lms.authservice.controller;
 
-import com.lms.authservice.dto.LoginRequestDTO;
-import com.lms.authservice.dto.LoginResponseDTO;
+import com.lms.authservice.dto.LoginRequest;
+import com.lms.authservice.dto.LoginResponse;
 import com.lms.authservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public LoginResponseDTO login(@RequestBody @Valid LoginRequestDTO request) {
+    public LoginResponse login(@RequestBody @Valid LoginRequest request) {
         return authService.login(request);
     }
 }
