@@ -40,8 +40,8 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
-        String accessToken = jwtService.generateAccessToken(loginRequest.getEmail());
-        String refreshToken = jwtService.generateRefreshToken(loginRequest.getEmail());
+        String accessToken = jwtService.generateAccessToken();
+//        String refreshToken = jwtService.generateRefreshToken(loginRequest.getEmail());
         return new LoginResponse(accessToken, refreshToken);
     }
 }
