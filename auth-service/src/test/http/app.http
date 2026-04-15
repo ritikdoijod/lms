@@ -1,9 +1,10 @@
 @baseUrl = http://localhost:4001
 
 ### Login
-POST {{baseUrl}}/auth/login
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
-
+  "email": "test_user2@example.com",
+  "password": "StrongPass"
 }

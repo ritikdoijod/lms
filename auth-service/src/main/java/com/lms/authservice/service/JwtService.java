@@ -27,9 +27,11 @@ public class JwtService {
                 .signWith(key).compact();
     }
 
-//    public String generateRefreshToken(String email) {
+    public String generateRefreshToken(Authentication auth) {
 //        return Jwts.builder().subject(email).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)).signWith(key).compact();
-//    }
+        return null;
+    }
+
 
     private String populateAuthorities(Authentication auth) {
         return auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
