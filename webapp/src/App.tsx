@@ -1,0 +1,69 @@
+import LoginPage from "@/pages/login"
+import SignUpPage from "@/pages/signup"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from "@tanstack/react-router"
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
+import axios from "axios"
+
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_API_URL
+
+const queryClient = new QueryClient()
+
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+})
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: function Index() {
+    return (
+      <div className="p-2">
+        <h3>Welcome Home!</h3>
+      </div>
+    )
+  },
+})
+
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage,
+})
+
+const signUpPage = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/signup",
+  component: SignUpPage,
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, loginRoute, signUpPage])
+
+const router = createRouter({ routeTree })
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router
+  }
+}
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  )
+}
+
+export default App
